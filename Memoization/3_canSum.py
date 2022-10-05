@@ -13,4 +13,3 @@ Example:
 canSum(7, [5, 3, 4, 7]) -> True because 3 + 4 = 7
 canSum(7, [2, 4]) -> False
 """
-
