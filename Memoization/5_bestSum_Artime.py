@@ -13,7 +13,7 @@ howSum(7, [5, 3, 4, 7]) -> Could be 3 + 4 or 7. But [7] is the shorter result
 
 
 def bestSum(target: int, numbers: list, memo: dict = {}) -> list:
-    shorter_combination = None
+    temp_result = None
     if target in memo:
         return memo[target]
     if target == 0:
@@ -27,20 +27,22 @@ def bestSum(target: int, numbers: list, memo: dict = {}) -> list:
         this_result = bestSum(my_remainder, numbers, memo)
 
         if this_result is not None:
-            combination = this_result + [number]
+            this_result = this_result + [number]
 
-            if not shorter_combination or len(combination) < len(shorter_combination):
-                shorter_combination = combination
+            if not temp_result:
+                temp_result = this_result
+            elif len(this_result) < len(temp_result):
+                temp_result = this_result
 
-    memo[target] = shorter_combination
+    memo[target] = temp_result
 
-    return shorter_combination
+    return temp_result
 
 
 print(bestSum(7, [2, 3], {}))  # [2, 2, 3]
 print(bestSum(7, [5, 3, 4, 7], {}))  # [7]
 print(bestSum(7, [2, 4], {}))  # None
-print(bestSum(8, [2, 3, 5], {}))  # [5, 3]
 print(bestSum(8, [1, 4, 5], {}))  # [4, 4]
+print(bestSum(8, [2, 3, 5], {}))  # [5, 3]
 print(bestSum(100, [1, 2, 5, 3, 25], {}))  # [25, 25, 25, 25]
 print(bestSum(300, [7, 14], {}))  # Maaany solutions to check but solution in None
