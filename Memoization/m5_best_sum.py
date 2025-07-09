@@ -1,3 +1,5 @@
+from tools import timed_step
+
 """
 Write a function bestSum(targetSum, numbers) that takes in a targetSum and an array of
 numbers as arguments.
@@ -12,8 +14,31 @@ howSum(7, [5, 3, 4, 7]) -> Could be 3 + 4 or 7. But [7] is the shorter result
 """
 
 
-def best_sum(target: int, numbers: list, memo: dict = {}) -> list:
+def best_sum(target: int, numbers: list) -> list:
+    if target == 0:
+        return []
+
+    if target < 0:
+        return None
+
     shorter_combination = None
+    for number in numbers:
+        my_remainder = target - number
+        this_result = best_sum(my_remainder, numbers)
+
+        if this_result is not None:
+            combination = this_result + [number]
+
+            if not shorter_combination or len(combination) < len(shorter_combination):
+                shorter_combination = combination
+
+    return shorter_combination
+
+
+def m_best_sum(target: int, numbers: list, memo: dict = None) -> list:
+    if memo is None:
+        memo = {}
+
     if target in memo:
         return memo[target]
     if target == 0:
@@ -22,9 +47,10 @@ def best_sum(target: int, numbers: list, memo: dict = {}) -> list:
     if target < 0:
         return None
 
+    shorter_combination = None
     for number in numbers:
         my_remainder = target - number
-        this_result = best_sum(my_remainder, numbers, memo)
+        this_result = m_best_sum(my_remainder, numbers, memo)
 
         if this_result is not None:
             combination = this_result + [number]
@@ -37,10 +63,21 @@ def best_sum(target: int, numbers: list, memo: dict = {}) -> list:
     return shorter_combination
 
 
-print(best_sum(7, [2, 3], {}))  # [2, 2, 3]
-print(best_sum(7, [5, 3, 4, 7], {}))  # [7]
-print(best_sum(7, [2, 4], {}))  # None
-print(best_sum(8, [2, 3, 5], {}))  # [5, 3]
-print(best_sum(8, [1, 4, 5], {}))  # [4, 4]
-print(best_sum(100, [1, 2, 5, 3, 25], {}))  # [25, 25, 25, 25]
-print(best_sum(300, [7, 14], {}))  # Maaany solutions to check but solution in None
+tests_cases = [
+    (7, [2, 3]),
+    (7, [5, 3, 4, 7]),
+    (7, [2, 4]),
+    (8, [2, 3, 5]),
+    (8, [1, 4, 5]),
+    (20, [1, 2, 5, 3, 10]),
+    (100, [1, 2, 5, 3, 25]),
+    (300, [7, 14]),
+]
+
+
+for target, numbers in tests_cases:
+    print(f"-------------BEST SUM {target} {numbers} -------------")
+    if target < 30:
+        timed_step(f"Best Sum ({target}, {numbers})", best_sum, target, numbers)
+    timed_step(f"Best Sum ({target}, {numbers}) Memoized", m_best_sum, target, numbers)
+    print("-" * 100)

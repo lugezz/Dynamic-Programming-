@@ -1,4 +1,10 @@
+import sys
+
+
 from tools import timed_step
+
+
+sys.setrecursionlimit(2000)
 
 
 # A naive recursive solution
@@ -14,7 +20,10 @@ def fib(n):
 
 
 # A memoized solution
-def fib_memo(n, memo={}):
+def fib_memo(n, memo=None):
+    if memo is None:
+        memo = {}
+
     if n in memo:
         return memo[n]
     if n <= 2:

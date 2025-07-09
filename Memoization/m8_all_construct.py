@@ -1,3 +1,5 @@
+from tools import timed_step
+
 """
 Write a function allConstruct(target, wordBank) that accepts a target string and an array of strings.
 
@@ -13,7 +15,26 @@ allConstruct("purple", ["purp", "purpl", "le", "p", "ur"]) -> [["purp", "le"],["
 """
 
 
-def all_construct(target: str, wordBank: list, memo: dict = {}):
+def all_construct(target: str, wordBank: list):
+    if target == "":
+        return [[]]
+
+    result = []
+
+    for word in wordBank:
+        if target.startswith(word):
+            suffix = target[len(word):]
+            suffixWay = all_construct(suffix, wordBank)
+            totalWay = [[word] + way for way in suffixWay]
+            result.extend(totalWay)
+
+    return result
+
+
+def m_all_construct(target: str, wordBank: list, memo: dict = None):
+    if memo is None:
+        memo = {}
+
     if target in memo:
         return memo[target]
     if target == "":
@@ -24,19 +45,28 @@ def all_construct(target: str, wordBank: list, memo: dict = {}):
     for word in wordBank:
         if target.startswith(word):
             suffix = target[len(word):]
-            suffixWay = all_construct(suffix, wordBank, memo)
+            suffixWay = m_all_construct(suffix, wordBank, memo)
             totalWay = [[word] + way for way in suffixWay]
-            result += totalWay
+            result.extend(totalWay)
 
     memo[target] = result
     return result
 
 
-print(all_construct('dog', ['do', 'f', 'g'], {}))  # [['do', 'g']]
-print(all_construct('dog', ['d', 'o', 'g', 'og'], {}))  # [['d', 'o', 'g'], ['d', 'og']]
-print(all_construct('abcdef', ['ab', 'abc', 'cd', 'def', 'ef', 'ef'], {}))  # 3
-print(all_construct('skatboard', ['bo', 'rd', 'ate', 't', 'ska', 'sk', 'boar'], {}))  # []
-print(all_construct('', ['cat', 'dog', 'mouse'], {}))  # [[]]
-print(all_construct('cat', ['cat', 'dog', 'mouse'], {}))  # [['cat']]
-print(all_construct('skeleton', ['s', 'k', 'e', 'la', 'loe', 'il', 'on', 'ton', 'dog', 'mouse'], {}))  # []
-print(all_construct('skeleton', ['s', 'k', 'e', 'ton', 'e', 'la', 'le', 'to', 'o', 'n', 'dog', 'mouse'], {}))  # 4 ways
+test_cases = [
+    ('dog', ['do', 'f', 'g']),
+    ('dog', ['d', 'o', 'g', 'og']),
+    ('abcdef', ['ab', 'abc', 'cd', 'def', 'ef', 'ef']),
+    ("purple", ["purp", "purpl", "le", "p", "ur"]),
+    ('skatboard', ['bo', 'rd', 'ate', 't', 'ska', 'sk', 'boar']),
+    ('', ['cat', 'dog', 'mouse']),
+    ('cat', ['cat', 'dog', 'mouse']),
+    ('skeleton', ['s', 'k', 'a', 'la', 'loe', 'il', 'on', 'ton', 'dog', 'mouse']),
+    ('skeleton', ['s', 'k', 'e', 'ton', 'e', 'la', 'le', 'to', 'o', 'n', 'dog', 'mouse']),
+]
+
+for target, wordBank in test_cases:
+    print(f"-------------ALL CONSTRUCT {target} {wordBank} -------------")
+    timed_step(f"All Construct ({target}, {wordBank})", all_construct, target, wordBank)
+    timed_step(f"All Construct ({target}, {wordBank}) Memoized", m_all_construct, target, wordBank)
+    print("-" * 100)

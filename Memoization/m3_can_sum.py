@@ -1,3 +1,5 @@
+from tools import timed_step
+
 """
 Write a function `canSum(targetSum, numbers)` that takes in a
 targetSum and an array of numbers as arguments.
@@ -15,7 +17,24 @@ canSum(7, [2, 4]) -> False
 """
 
 
-def can_sum(target: int, numbers: list, memo={}) -> bool:
+def can_sum(target: int, numbers: list) -> bool:
+    if target == 0:
+        return True
+    if target < 0:
+        return False
+
+    for number in numbers:
+        my_remainder = target - number
+        if can_sum(my_remainder, numbers):
+            return True
+
+    return False
+
+
+def m_can_sum(target: int, numbers: list, memo=None) -> bool:
+    if memo is None:
+        memo = {}
+
     if target in memo:
         return memo[target]
     if target == 0:
@@ -25,7 +44,7 @@ def can_sum(target: int, numbers: list, memo={}) -> bool:
 
     for number in numbers:
         my_remainder = target - number
-        if can_sum(my_remainder, numbers, memo):
+        if m_can_sum(my_remainder, numbers, memo):
             memo[target] = True
             return True
 
@@ -33,8 +52,19 @@ def can_sum(target: int, numbers: list, memo={}) -> bool:
     return False
 
 
-print(can_sum(7, [2, 3], {}))  # True
-print(can_sum(7, [5, 3, 4, 7]))  # True
-print(can_sum(7, [2, 4], {}))  # False
-print(can_sum(8, [2, 3, 5], {}))  # True
-print(can_sum(300, [7, 14], {}))  # False
+test_cases = [
+    (7, [5, 3, 4, 7]),
+    (7, [2, 4]),
+    (8, [2, 3, 5]),
+    (50, [2, 3, 5]),
+    (97, [7, 14]),
+    (300, [7, 14]),
+]
+
+
+for target, numbers in test_cases:
+    print(f"-------------CAN SUM {target} {numbers} -------------")
+    if target < 100:
+        timed_step(f"Can Sum ({target}, {numbers})", can_sum, target, numbers)
+    timed_step(f"Can Sum ({target}, {numbers}) Memoized", m_can_sum, target, numbers)
+    print("-" * 100)

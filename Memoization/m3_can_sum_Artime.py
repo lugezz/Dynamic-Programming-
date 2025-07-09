@@ -1,3 +1,6 @@
+from tools import timed_step
+
+
 """
 Write a function `canSum(targetSum, numbers)` that takes in a
 targetSum and an array of numbers as arguments.
@@ -34,7 +37,10 @@ def basic_can_sum(target: int, list_of_nums: list) -> bool:
     return resp
 
 
-def can_sum(target: int, list_of_nums: list, memo={}) -> bool:
+def can_sum(target: int, list_of_nums: list, memo=None) -> bool:
+    if memo is None:
+        memo = {}
+
     resp = False
     minor_values = sorted(list(filter(lambda x: x <= target, list_of_nums)))
 
@@ -61,8 +67,17 @@ def can_sum(target: int, list_of_nums: list, memo={}) -> bool:
     return resp
 
 
-print(can_sum(7, [5, 3, 4, 7]))
-print(can_sum(7, [2, 4]))
-print(can_sum(67, [2, 3, 4, 8, 5, 14, 9, 11, 25, 3, 19, 4, 14, 15, 16, 17]))
-# False because # list -> False, target -> even
-print(can_sum(67, [2, 4, 4, 8, 6, 14, 10, 12, 26, 2, 20, 4, 14, 18, 16, 22]))
+test_cases = [
+    (7, [5, 3, 4, 7]),
+    (7, [2, 4]),
+    (67, [2, 3, 4, 8, 5, 14, 9, 11, 25, 3, 19, 4, 14, 15, 16, 17]),
+    # False because # list -> False, target -> even
+    (67, [2, 4, 4, 8, 6, 14, 10, 12, 26, 2, 20, 4, 14, 18, 16, 22]),
+]
+
+for target, numbers in test_cases:
+    print(f"-------------CAN SUM {target} {numbers} -------------")
+    if target < 100:
+        timed_step(f"Can Sum ({target}, {numbers})", basic_can_sum, target, numbers)
+    timed_step(f"Can Sum ({target}, {numbers}) Memoized", can_sum, target, numbers)
+    print("-" * 100)

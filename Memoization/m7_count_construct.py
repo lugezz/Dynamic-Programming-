@@ -1,3 +1,5 @@
+from tools import timed_step
+
 """
 Write a function countConstruct(target, wordBank) that accepts a target string and an array of strings.
 T
@@ -13,7 +15,24 @@ Examples:
 """
 
 
-def count_construct(target: str, wordBank: list, memo: dict = {}):
+def count_construct(target: str, wordBank: list):
+    total_count = 0
+    if target == '':
+        return 1
+
+    for word in wordBank:
+        if target.startswith(word):
+            suffix = target[len(word):]
+            num_ways = count_construct(suffix, wordBank)
+            total_count += num_ways
+
+    return total_count
+
+
+def m_count_construct(target: str, wordBank: list, memo: dict = None):
+    if memo is None:
+        memo = {}
+
     total_count = 0
     if target in memo:
         return memo[target]
@@ -24,18 +43,33 @@ def count_construct(target: str, wordBank: list, memo: dict = {}):
     for word in wordBank:
         if target.startswith(word):
             suffix = target[len(word):]
-            num_ways = count_construct(suffix, wordBank, memo)
+            num_ways = m_count_construct(suffix, wordBank, memo)
             total_count += num_ways
 
     memo[target] = total_count
     return total_count
 
 
-print(count_construct('dog', ['do', 'f', 'g'], {}))  # 1
-print(count_construct('dog', ['d', 'o', 'g', 'og'], {}))  # 2
-print(count_construct('abcdef', ['ab', 'abc', 'cd', 'def', 'ef', 'ef'], {}))  # 3
-print(count_construct('skatboard', ['bo', 'rd', 'ate', 't', 'ska', 'sk', 'boar'], {}))  # 0
-print(count_construct('', ['cat', 'dog', 'mouse'], {}))  # 1?
-print(count_construct('cat', ['cat', 'dog', 'mouse'], {}))  # 1
-print(count_construct('skeleton', ['s', 'k', 'e', 'la', 'loe', 'il', 'on', 'ton', 'dog', 'mouse'], {}))  # 0
-print(count_construct('skeleton', ['s', 'k', 'e', 'ton', 'e', 'la', 'le', 'to', 'o', 'n', 'dog', 'mouse'], {}))  # 4
+test_cases = [
+    ('dog', ['do', 'f', 'g']),
+    ('dog', ['d', 'o', 'g', 'og']),
+    ('abcdef', ['ab', 'abc', 'cd', 'def', 'ef', 'ef']),
+    ('skatboard', ['bo', 'rd', 'ate', 't', 'ska', 'sk', 'boar']),
+    ('', ['cat', 'dog', 'mouse']),
+    ('cat', ['cat', 'dog', 'mouse']),
+    ('skeleton', ['s', 'k', 'e', 'la', 'loe', 'il', 'on', 'ton', 'dog', 'mouse']),
+    ('skeleton', ['s', 'k', 'e', 'ton', 'e', 'la', 'le', 'to', 'o', 'n', 'dog', 'mouse']),
+    ('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeefe',
+     ['e', 'ee', 'eeee', 'eeeee', 'eeeeee', 'eeeeeeeeeeeee',
+      'eeeeeeeee', 'eee', 'eeee', 'eeeeee', 'eeeee', 'eeeee', 'eee']),
+    ('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
+     ['e', 'ee', 'eeee', 'eeeee', 'eeeeee', 'eeeeeeeeeeeee',
+      'eeeeeeeee', 'eee', 'eeee', 'eeeeee', 'eeeee', 'eeeee', 'eee']),
+]
+
+for target, wordBank in test_cases:
+    print(f"-------------COUNT CONSTRUCT {target} {wordBank} -------------")
+    if len(target) < 30:
+        timed_step(f"Count Construct ({target}, {wordBank})", count_construct, target, wordBank)
+    timed_step(f"Count Construct ({target}, {wordBank}) Memoized", m_count_construct, target, wordBank)
+    print("-" * 100)
