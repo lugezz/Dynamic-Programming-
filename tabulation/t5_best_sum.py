@@ -22,8 +22,10 @@ def t_best_sum(target: int, numbers: list) -> list:
     for i in range(target+1):
         if table[i] is not None:
             for num in numbers:
-                if i + num <= target and (table[i+num] is None or len(table[i+num]) > len(table[i]) + 1):
-                    table[i + num] = table[i] + [num]
+                next_i = i + num
+                this_round_res = table[i] + [num]
+                if next_i <= target and (table[next_i] is None or len(table[next_i]) > len(table[i]) + 1):
+                    table[next_i] = this_round_res
 
     return table[target]
 

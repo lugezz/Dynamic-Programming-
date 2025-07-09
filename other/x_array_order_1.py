@@ -1,3 +1,5 @@
+from tools import timed_step
+
 
 """
 Given an array of size n such that array elements are in range from
@@ -25,30 +27,30 @@ Input: arr[] = {4, 3, 2, 1}.
 Output: 3
 """
 
-list1 = [3, 2, 1, 4]
-list2 = [5, 7, 4, 3, 2, 6, 1]
-list3 = [4, 3, 2, 1]
 
-
-def min_moves(arr, n):
-
+def min_moves(arr):
+    """ Function to find minimum number of moves
+    to arrange items in order {1, 2, 3,… n}.
+    """
+    n = len(arr)
     # Since we traverse array from end,
     # expected item is initially n
     expectedItem = n
 
     # Traverse array from end
     for i in range(n - 1, -1, -1):
-
-        # If current item is at its
-        # correct position, decrement
-        # the expectedItem (which also
-        # means decrement in minimum
-        # number of moves)
+        # If current item is at its correct position, decrement the expectedItem (which also
+        # means decrement in minimum  number of moves)
         if (arr[i] == expectedItem):
             expectedItem -= 1
     return expectedItem
 
 
-print("List1 Result:", min_moves(list1, 4))
-print("List2 Result:", min_moves(list2, 7))
-print("List3 Result:", min_moves(list3, 4))
+list1 = [3, 2, 1, 4]
+list2 = [5, 7, 4, 3, 2, 6, 1]
+list3 = [4, 3, 2, 1]
+
+
+timed_step("List1 Result", min_moves, list1)
+timed_step("List2 Result", min_moves, list2)
+timed_step("List3 Result", min_moves, list3)
