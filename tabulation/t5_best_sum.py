@@ -1,3 +1,6 @@
+from tools import timed_step
+from memoization.m5_best_sum import best_sum
+
 """
 Write a function bestSum(targetSum, numbers) that takes in a targetSum and an array of
 numbers as arguments.
@@ -12,7 +15,7 @@ howSum(7, [5, 3, 4, 7]) -> Could be 3 + 4 or 7. But [7] is the shorter result
 """
 
 
-def best_sum(target: int, numbers: list) -> list:
+def t_best_sum(target: int, numbers: list) -> list:
     table = [None] * (target + 1)
     table[0] = []
 
@@ -25,10 +28,18 @@ def best_sum(target: int, numbers: list) -> list:
     return table[target]
 
 
-print(best_sum(7, [2, 3]))  # [2, 2, 3]
-print(best_sum(7, [5, 3, 4, 7]))  # [7]
-print(best_sum(7, [2, 4]))  # None
-print(best_sum(8, [2, 3, 5]))  # [5, 3]
-print(best_sum(8, [1, 4, 5]))  # [4, 4]
-print(best_sum(100, [1, 2, 5, 3, 25]))  # [25, 25, 25, 25]
-print(best_sum(300, [7, 14]))  # Maaany solutions to check but solution in None
+test_cases = [
+    (7, [2, 3]),
+    (7, [5, 3, 4, 7]),
+    (7, [2, 4]),
+    (8, [2, 3, 5]),
+    (100, [1, 2, 5, 3, 25]),
+    (300, [7, 14]),
+]
+
+for target, numbers in test_cases:
+    print(f"-------------BEST SUM {target} -------------")
+    if target < 100 and len(numbers) < 10:
+        timed_step(f"Best Sum ({target}, {numbers})", best_sum, target, numbers)
+    timed_step(f"Best Sum ({target}, {numbers}) Tabulation", t_best_sum, target, numbers)
+    print("-" * 100)

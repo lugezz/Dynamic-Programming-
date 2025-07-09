@@ -1,3 +1,6 @@
+from tools import timed_step
+from memoization.m2_grid_traveler import grid_traveler
+
 """
 Say you are a traveler on a 2D grid.
 You begin in the top-left corner
@@ -14,7 +17,7 @@ grid_traveler(3, 3) => 6
 """
 
 
-def grid_traveler(m: int, n: int) -> int:
+def t_grid_traveler(m: int, n: int) -> int:
 
     matrix = [[0] * (n+1) for i in range(m+1)]
     matrix[1][1] = 1
@@ -30,8 +33,19 @@ def grid_traveler(m: int, n: int) -> int:
     return matrix[m][n]
 
 
-print(grid_traveler(1, 1))  # // 1
-print(grid_traveler(2, 3))  # // 3
-print(grid_traveler(3, 2))  # // 3
-print(grid_traveler(3, 3))  # // 6
-print(grid_traveler(18, 18))  # // 2333606220
+test_cases = [
+    (1, 1),
+    (2, 3),
+    (3, 2),
+    (3, 3),
+    (9, 14),
+    (14, 14),
+    (18, 18),
+]
+
+for m, n in test_cases:
+    print(f"-------------GRID TRAVELER {m}x{n} -------------")
+    if m < 15 and n < 15:
+        timed_step(f"Grid Traveler ({m}, {n})", grid_traveler, m, n)
+    timed_step(f"Grid Traveler ({m}, {n}) Tabulation", t_grid_traveler, m, n)
+    print("-" * 100)

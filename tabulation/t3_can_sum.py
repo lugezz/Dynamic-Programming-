@@ -1,3 +1,6 @@
+from tools import timed_step
+from memoization.m3_can_sum import can_sum
+
 """
 Write a function `canSum(targetSum, numbers)` that takes in a
 targetSum and an array of numbers as arguments.
@@ -15,7 +18,7 @@ canSum(7, [2, 4]) -> False
 """
 
 
-def can_sum(target: int, numbers: list) -> bool:
+def t_can_sum(target: int, numbers: list) -> bool:
     table = [False] * (target + 1)
     table[0] = True
 
@@ -28,9 +31,20 @@ def can_sum(target: int, numbers: list) -> bool:
     return table[target]
 
 
-print(can_sum(7, [2, 3]))  # True
-print(can_sum(7, [5, 3, 4, 7]))  # True
-print(can_sum(7, [2, 4]))  # False
-print(can_sum(8, [2, 3, 5]))  # True
-print(can_sum(300, [7, 14]))  # False
-print(can_sum(300, [2, 14]))  # True
+test_cases = [
+    (7, [2, 3]),
+    (7, [5, 3, 4, 7]),
+    (7, [2, 4]),
+    (8, [2, 3, 5]),
+    (157, [14, 16, 20]),
+    (300, [7, 14]),
+    (300, [2, 14]),
+]
+
+
+for target, numbers in test_cases:
+    print(f"-------------CAN SUM {target} -------------")
+    if target < 200 and len(numbers) < 10:
+        timed_step(f"Can Sum ({target}, {numbers})", can_sum, target, numbers)
+    timed_step(f"Can Sum ({target}, {numbers}) Tabulation", t_can_sum, target, numbers)
+    print("-" * 100)
