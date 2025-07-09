@@ -15,7 +15,7 @@ canSum(7, [2, 4]) -> False
 """
 
 
-def canSum(target: int, numbers: list, memo={}) -> bool:
+def can_sum(target: int, numbers: list, memo={}) -> bool:
     if target in memo:
         return memo[target]
     if target == 0:
@@ -25,7 +25,7 @@ def canSum(target: int, numbers: list, memo={}) -> bool:
 
     for number in numbers:
         my_remainder = target - number
-        if canSum(my_remainder, numbers, memo):
+        if can_sum(my_remainder, numbers, memo):
             memo[target] = True
             return True
 
@@ -33,8 +33,8 @@ def canSum(target: int, numbers: list, memo={}) -> bool:
     return False
 
 
-print(canSum(7, [2, 3], {}))  # True
-print(canSum(7, [5, 3, 4, 7]))  # True
-print(canSum(7, [2, 4], {}))  # False
-print(canSum(8, [2, 3, 5], {}))  # True
-print(canSum(300, [7, 14], {}))  # False
+print(can_sum(7, [2, 3], {}))  # True
+print(can_sum(7, [5, 3, 4, 7]))  # True
+print(can_sum(7, [2, 4], {}))  # False
+print(can_sum(8, [2, 3, 5], {}))  # True
+print(can_sum(300, [7, 14], {}))  # False

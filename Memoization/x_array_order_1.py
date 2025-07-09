@@ -30,7 +30,7 @@ list2 = [5, 7, 4, 3, 2, 6, 1]
 list3 = [4, 3, 2, 1]
 
 
-def minMoves(arr, n):
+def min_moves(arr, n):
 
     # Since we traverse array from end,
     # expected item is initially n
@@ -49,6 +49,6 @@ def minMoves(arr, n):
     return expectedItem
 
 
-print("List1 Result:", minMoves(list1, 4))
-print("List2 Result:", minMoves(list2, 7))
-print("List3 Result:", minMoves(list3, 4))
+print("List1 Result:", min_moves(list1, 4))
+print("List2 Result:", min_moves(list2, 7))
+print("List3 Result:", min_moves(list3, 4))

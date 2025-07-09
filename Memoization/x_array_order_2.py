@@ -9,7 +9,7 @@ the array
 """
 
 
-def minSwap(arr, n):
+def min_swap(arr, n):
     ans = 0
     temp = arr.copy()
     temp.sort()
@@ -49,6 +49,6 @@ a = [101, 758, 315, 730, 472, 619, 460, 479]
 n = len(a)
 
 # Output will be 5
-print(minSwap(a, n))
+print(min_swap(a, n))
 
 # This code is contributed by avanitrachhadiya2155

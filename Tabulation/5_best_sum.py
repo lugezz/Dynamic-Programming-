@@ -12,7 +12,7 @@ howSum(7, [5, 3, 4, 7]) -> Could be 3 + 4 or 7. But [7] is the shorter result
 """
 
 
-def bestSum(target: int, numbers: list) -> list:
+def best_sum(target: int, numbers: list) -> list:
     table = [None] * (target + 1)
     table[0] = []
 
@@ -25,10 +25,10 @@ def bestSum(target: int, numbers: list) -> list:
     return table[target]
 
 
-print(bestSum(7, [2, 3]))  # [2, 2, 3]
-print(bestSum(7, [5, 3, 4, 7]))  # [7]
-print(bestSum(7, [2, 4]))  # None
-print(bestSum(8, [2, 3, 5]))  # [5, 3]
-print(bestSum(8, [1, 4, 5]))  # [4, 4]
-print(bestSum(100, [1, 2, 5, 3, 25]))  # [25, 25, 25, 25]
-print(bestSum(300, [7, 14]))  # Maaany solutions to check but solution in None
+print(best_sum(7, [2, 3]))  # [2, 2, 3]
+print(best_sum(7, [5, 3, 4, 7]))  # [7]
+print(best_sum(7, [2, 4]))  # None
+print(best_sum(8, [2, 3, 5]))  # [5, 3]
+print(best_sum(8, [1, 4, 5]))  # [4, 4]
+print(best_sum(100, [1, 2, 5, 3, 25]))  # [25, 25, 25, 25]
+print(best_sum(300, [7, 14]))  # Maaany solutions to check but solution in None

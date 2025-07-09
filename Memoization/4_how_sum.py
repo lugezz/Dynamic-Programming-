@@ -15,7 +15,7 @@ howSum(0, [3, 4]) -> Returns []
 """
 
 
-def howSum(target: int, numbers: list, memo: dict = {}) -> list:
+def how_sum(target: int, numbers: list, memo: dict = {}) -> list:
     if target in memo:
         return memo[target]
 
@@ -27,7 +27,7 @@ def howSum(target: int, numbers: list, memo: dict = {}) -> list:
 
     for number in numbers:
         my_remainder = target - number
-        this_result = howSum(my_remainder, numbers, memo)
+        this_result = how_sum(my_remainder, numbers, memo)
         if this_result is not None:
             memo[target] = this_result + [number]
             return memo[target]
@@ -36,8 +36,8 @@ def howSum(target: int, numbers: list, memo: dict = {}) -> list:
     return None
 
 
-print(howSum(7, [2, 3], {}))  # [2, 2, 3]
-print(howSum(7, [5, 3, 4, 7], {}))  # [3, 4] or [7]
-print(howSum(7, [2, 4], {}))  # None
-print(howSum(8, [2, 3, 5], {}))  # [2, 3, 3] or [5, 3] or [2, 2, 2, 2]
-print(howSum(300, [7, 14], {}))  # Maaany solutions to check but solution in None
+print(how_sum(7, [2, 3], {}))  # [2, 2, 3]
+print(how_sum(7, [5, 3, 4, 7], {}))  # [3, 4] or [7]
+print(how_sum(7, [2, 4], {}))  # None
+print(how_sum(8, [2, 3, 5], {}))  # [2, 3, 3] or [5, 3] or [2, 2, 2, 2]
+print(how_sum(300, [7, 14], {}))  # Maaany solutions to check but solution in None

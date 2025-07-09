@@ -13,7 +13,7 @@ allConstruct("purple", ["purp", "purpl", "le", "p", "ur"]) -> [["purp", "le"],["
 """
 
 
-def allConstruct(target: str, wordBank: list, memo: dict = {}):
+def all_construct(target: str, wordBank: list, memo: dict = {}):
     if target in memo:
         return memo[target]
     if target == "":
@@ -24,7 +24,7 @@ def allConstruct(target: str, wordBank: list, memo: dict = {}):
     for word in wordBank:
         if target.startswith(word):
             suffix = target[len(word):]
-            suffixWay = allConstruct(suffix, wordBank, memo)
+            suffixWay = all_construct(suffix, wordBank, memo)
             totalWay = [[word] + way for way in suffixWay]
             result += totalWay
 
@@ -32,11 +32,11 @@ def allConstruct(target: str, wordBank: list, memo: dict = {}):
     return result
 
 
-print(allConstruct('dog', ['do', 'f', 'g'], {}))  # [['do', 'g']]
-print(allConstruct('dog', ['d', 'o', 'g', 'og'], {}))  # [['d', 'o', 'g'], ['d', 'og']]
-print(allConstruct('abcdef', ['ab', 'abc', 'cd', 'def', 'ef', 'ef'], {}))  # 3
-print(allConstruct('skatboard', ['bo', 'rd', 'ate', 't', 'ska', 'sk', 'boar'], {}))  # []
-print(allConstruct('', ['cat', 'dog', 'mouse'], {}))  # [[]]
-print(allConstruct('cat', ['cat', 'dog', 'mouse'], {}))  # [['cat']]
-print(allConstruct('skeleton', ['s', 'k', 'e', 'la', 'loe', 'il', 'on', 'ton', 'dog', 'mouse'], {}))  # []
-print(allConstruct('skeleton', ['s', 'k', 'e', 'ton', 'e', 'la', 'le', 'to', 'o', 'n', 'dog', 'mouse'], {}))  # 4 ways
+print(all_construct('dog', ['do', 'f', 'g'], {}))  # [['do', 'g']]
+print(all_construct('dog', ['d', 'o', 'g', 'og'], {}))  # [['d', 'o', 'g'], ['d', 'og']]
+print(all_construct('abcdef', ['ab', 'abc', 'cd', 'def', 'ef', 'ef'], {}))  # 3
+print(all_construct('skatboard', ['bo', 'rd', 'ate', 't', 'ska', 'sk', 'boar'], {}))  # []
+print(all_construct('', ['cat', 'dog', 'mouse'], {}))  # [[]]
+print(all_construct('cat', ['cat', 'dog', 'mouse'], {}))  # [['cat']]
+print(all_construct('skeleton', ['s', 'k', 'e', 'la', 'loe', 'il', 'on', 'ton', 'dog', 'mouse'], {}))  # []
+print(all_construct('skeleton', ['s', 'k', 'e', 'ton', 'e', 'la', 'le', 'to', 'o', 'n', 'dog', 'mouse'], {}))  # 4 ways

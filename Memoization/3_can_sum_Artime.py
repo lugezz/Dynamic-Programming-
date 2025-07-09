@@ -15,7 +15,7 @@ canSum(7, [2, 4]) -> False
 """
 
 
-def basicCanSum(target: int, list_of_nums: list) -> bool:
+def basic_can_sum(target: int, list_of_nums: list) -> bool:
     resp = False
     minor_values = sorted(list(filter(lambda x: x <= target, list_of_nums)))
 
@@ -27,14 +27,14 @@ def basicCanSum(target: int, list_of_nums: list) -> bool:
             resp = True
             break
         elif value < target:
-            resp = canSum(target - value, minor_values)
+            resp = can_sum(target - value, minor_values)
             if resp:
                 break
 
     return resp
 
 
-def canSum(target: int, list_of_nums: list, memo={}) -> bool:
+def can_sum(target: int, list_of_nums: list, memo={}) -> bool:
     resp = False
     minor_values = sorted(list(filter(lambda x: x <= target, list_of_nums)))
 
@@ -53,7 +53,7 @@ def canSum(target: int, list_of_nums: list, memo={}) -> bool:
             resp = True
             break
         elif value < target:
-            resp = canSum(target - value, minor_values)
+            resp = can_sum(target - value, minor_values)
             if resp:
                 break
 
@@ -61,8 +61,8 @@ def canSum(target: int, list_of_nums: list, memo={}) -> bool:
     return resp
 
 
-print(canSum(7, [5, 3, 4, 7]))
-print(canSum(7, [2, 4]))
-print(canSum(67, [2, 3, 4, 8, 5, 14, 9, 11, 25, 3, 19, 4, 14, 15, 16, 17]))
+print(can_sum(7, [5, 3, 4, 7]))
+print(can_sum(7, [2, 4]))
+print(can_sum(67, [2, 3, 4, 8, 5, 14, 9, 11, 25, 3, 19, 4, 14, 15, 16, 17]))
 # False because # list -> False, target -> even
-print(canSum(67, [2, 4, 4, 8, 6, 14, 10, 12, 26, 2, 20, 4, 14, 18, 16, 22]))
+print(can_sum(67, [2, 4, 4, 8, 6, 14, 10, 12, 26, 2, 20, 4, 14, 18, 16, 22]))

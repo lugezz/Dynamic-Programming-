@@ -12,7 +12,7 @@ howSum(7, [5, 3, 4, 7]) -> Could be 3 + 4 or 7. But [7] is the shorter result
 """
 
 
-def bestSum(target: int, numbers: list, memo: dict = {}) -> list:
+def best_sum(target: int, numbers: list, memo: dict = {}) -> list:
     temp_result = None
     if target in memo:
         return memo[target]
@@ -24,7 +24,7 @@ def bestSum(target: int, numbers: list, memo: dict = {}) -> list:
 
     for number in numbers:
         my_remainder = target - number
-        this_result = bestSum(my_remainder, numbers, memo)
+        this_result = best_sum(my_remainder, numbers, memo)
 
         if this_result is not None:
             this_result = this_result + [number]
@@ -39,10 +39,10 @@ def bestSum(target: int, numbers: list, memo: dict = {}) -> list:
     return temp_result
 
 
-print(bestSum(7, [2, 3], {}))  # [2, 2, 3]
-print(bestSum(7, [5, 3, 4, 7], {}))  # [7]
-print(bestSum(7, [2, 4], {}))  # None
-print(bestSum(8, [1, 4, 5], {}))  # [4, 4]
-print(bestSum(8, [2, 3, 5], {}))  # [5, 3]
-print(bestSum(100, [1, 2, 5, 3, 25], {}))  # [25, 25, 25, 25]
-print(bestSum(300, [7, 14], {}))  # Maaany solutions to check but solution in None
+print(best_sum(7, [2, 3], {}))  # [2, 2, 3]
+print(best_sum(7, [5, 3, 4, 7], {}))  # [7]
+print(best_sum(7, [2, 4], {}))  # None
+print(best_sum(8, [1, 4, 5], {}))  # [4, 4]
+print(best_sum(8, [2, 3, 5], {}))  # [5, 3]
+print(best_sum(100, [1, 2, 5, 3, 25], {}))  # [25, 25, 25, 25]
+print(best_sum(300, [7, 14], {}))  # Maaany solutions to check but solution in None

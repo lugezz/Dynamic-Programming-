@@ -15,7 +15,7 @@ canSum(7, [2, 4]) -> False
 """
 
 
-def canSum(target: int, numbers: list) -> bool:
+def can_sum(target: int, numbers: list) -> bool:
     table = [False] * (target + 1)
     table[0] = True
 
@@ -28,9 +28,9 @@ def canSum(target: int, numbers: list) -> bool:
     return table[target]
 
 
-print(canSum(7, [2, 3]))  # True
-print(canSum(7, [5, 3, 4, 7]))  # True
-print(canSum(7, [2, 4]))  # False
-print(canSum(8, [2, 3, 5]))  # True
-print(canSum(300, [7, 14]))  # False
-print(canSum(300, [2, 14]))  # True
+print(can_sum(7, [2, 3]))  # True
+print(can_sum(7, [5, 3, 4, 7]))  # True
+print(can_sum(7, [2, 4]))  # False
+print(can_sum(8, [2, 3, 5]))  # True
+print(can_sum(300, [7, 14]))  # False
+print(can_sum(300, [2, 14]))  # True

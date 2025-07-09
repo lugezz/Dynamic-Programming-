@@ -15,7 +15,7 @@ howSum(0, [3, 4]) -> Returns []
 """
 
 
-def howSum(target: int, numbers: list) -> list:
+def how_sum(target: int, numbers: list) -> list:
     table = [None] * (target + 1)
     table[0] = []
 
@@ -28,8 +28,8 @@ def howSum(target: int, numbers: list) -> list:
     return table[target]
 
 
-print(howSum(7, [2, 3]))  # [2, 2, 3]
-print(howSum(7, [5, 3, 4, 7]))  # [3, 4] or [7]
-print(howSum(7, [2, 4]))  # None
-print(howSum(8, [2, 3, 5]))  # [2, 3, 3] or [5, 3] or [2, 2, 2, 2]
-print(howSum(300, [7, 14]))  # Maaany solutions to check but solution in None
+print(how_sum(7, [2, 3]))  # [2, 2, 3]
+print(how_sum(7, [5, 3, 4, 7]))  # [3, 4] or [7]
+print(how_sum(7, [2, 4]))  # None
+print(how_sum(8, [2, 3, 5]))  # [2, 3, 3] or [5, 3] or [2, 2, 2, 2]
+print(how_sum(300, [7, 14]))  # Maaany solutions to check but solution in None
